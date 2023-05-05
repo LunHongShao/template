@@ -1,8 +1,10 @@
-package other.mvvm.activity
+package other.mvvm.fragment
 
 import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.*
+import other.mvvm.activity.defaultPackageNameParameter
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.mvvm.activity.lazyFragmentRecipe
 import java.io.File
 
 
@@ -10,7 +12,7 @@ val lazyFragmentTemplate
     get() = template {
 //        revision = 1
         name = "LazyFragment"
-        description = "适用于Nice框架的Activity"
+        description = "适用于Nice框架的Fragment"
         minApi = MIN_API
 //        minBuildApi = MIN_API
 
@@ -44,7 +46,7 @@ val lazyFragmentTemplate
         )
         thumb { File("logo.png") }
         recipe = { data: TemplateData ->
-            mvvmActivityRecipe(
+            lazyFragmentRecipe(
                     data as ModuleTemplateData,
                     activityClass.value,
                     layoutName.value,

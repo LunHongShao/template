@@ -1,4 +1,4 @@
-package other.mvvm.itemBinder
+package other.mvvm.fragment
 
 /**
  *
@@ -10,24 +10,27 @@ package other.mvvm.itemBinder
  * @UpdateRemark:   更新说明：
  * @Version:        2.6.0
  */
-fun itemBinderKt(
+fun fragmentKt(
     applicationPackage: String?,
     className: String,
-    packageName: String,
-    beanClassName:String,
-    beanPackageName:String
+    packageName: String
 )="""
 package ${packageName}
-import ${applicationPackage}.base.BindingItemBinder
-import com.youloft.schedule.base.BindingViewHolder
+
 import ${applicationPackage}.R
-import ${beanPackageName}.${beanClassName}
-import ${applicationPackage}.databinding.Item${className}LayoutBinding
-class ${className}ItemBinder : BindingItemBinder<${beanClassName},Item${className}LayoutBinding>() {
-   override fun onBindViewHolder(
-        holder: BindingViewHolder<Item${className}LayoutBinding>,
-        item: $beanClassName
-    ) {
+import me.simple.nm.LazyFragment
+import ${applicationPackage}.databinding.Fragment${className}Binding
+class ${className}Fragment : LazyFragment<Fragment${className}Binding>() {
+      override fun init() {
     }
-    } 
+
+    override fun initView() {
+    }
+
+    override fun initData() {
+    }
+
+    override fun lazyLoad() {
+    }
+    }
 """

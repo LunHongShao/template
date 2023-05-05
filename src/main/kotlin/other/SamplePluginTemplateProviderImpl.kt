@@ -1,14 +1,21 @@
 package other
 
+import com.android.tools.idea.wizard.template.Template
+import com.android.tools.idea.wizard.template.WizardTemplateProvider
+import other.mvvm.activity.mvvmActivityTemplate
+import other.mvvm.dialog.centerDialogTemplate
+import other.mvvm.itemBinder.itemBinderTemplate
+import other.mvvm.fragment.lazyFragmentTemplate
 
-/**     
-  * 
-  * @Description:      
-  * @Author:         slh
-  * @CreateDate:     2022/7/6 11:00
-  * @UpdateUser:     更新者：
-  * @UpdateDate:     2022/7/6 11:00
-  * @UpdateRemark:   更新说明：
-  * @Version:        2.2.7
-  */class SamplePluginTemplateProviderImpl {
+class SamplePluginTemplateProviderImpl : WizardTemplateProvider() {
+
+    override fun getTemplates(): List<Template> = listOf(
+        // activity的模板
+        mvvmActivityTemplate,
+        //itemBinder模板
+        itemBinderTemplate,
+        //centerDialog模板
+        centerDialogTemplate,
+        lazyFragmentTemplate
+    )
 }

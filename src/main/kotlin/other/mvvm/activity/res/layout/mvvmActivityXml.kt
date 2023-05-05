@@ -1,14 +1,20 @@
 package other.mvvm.activity.res.layout
 
+fun mvvmActivityXml(
+        packageName: String,
+        activityClass: String
+) = """
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-/**     
-  * 
-  * @Description:      
-  * @Author:         slh
-  * @CreateDate:     2022/7/6 11:21
-  * @UpdateUser:     更新者：
-  * @UpdateDate:     2022/7/6 11:21
-  * @UpdateRemark:   更新说明：
-  * @Version:        2.2.7
-  */class mvvmActivityXml {
-}
+    <${packageName}.widgets.SToolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>"""

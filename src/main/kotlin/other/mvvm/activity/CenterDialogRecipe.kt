@@ -2,8 +2,10 @@ package other.mvvm.activity
 
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
+import other.mvvm.activity.res.layout.dialogXml
 import other.mvvm.activity.res.layout.itemBinderXml
 import other.mvvm.activity.res.layout.mvvmActivityXml
+import other.mvvm.dialog.centerDialogKt
 import other.mvvm.itemBinder.itemBinderKt
 
 /**
@@ -17,25 +19,21 @@ import other.mvvm.itemBinder.itemBinderKt
  * @Version:        2.6.0
  */
 
-fun RecipeExecutor.itemBinderRecipe(
+fun RecipeExecutor.centerDialogRecipe(
     moduleData: ModuleTemplateData,
     className: String,
     layoutName: String,
-    packageName: String,
-    beanPackageName: String,
-    beanClassName: String
+    packageName: String
 ) {
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
-    val itemBinder = itemBinderKt(
+    val dialog = centerDialogKt(
         projectData.applicationPackage,
         className,
-        packageName,
-        beanClassName = beanClassName,
-        beanPackageName = beanPackageName
+        packageName
     )
     // 保存Activity
-    save(itemBinder, srcOut.resolve("${className}ItemBinder.${ktOrJavaExt}"))
+    save(dialog, srcOut.resolve("${className}Dialog.${ktOrJavaExt}"))
     // 保存xml
-    save(itemBinderXml(), resOut.resolve("layout/${layoutName}.xml"))
+    save(dialogXml(), resOut.resolve("layout/${layoutName}.xml"))
 }

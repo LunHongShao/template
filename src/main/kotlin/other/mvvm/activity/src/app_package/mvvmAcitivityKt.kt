@@ -1,14 +1,31 @@
 package other.mvvm.activity.src.app_package
 
+fun niceAcitivityKt(
+        applicationPackage:String?,
+        activityClass:String,
+        packageName:String
+)="""
+package ${packageName}
+import me.simple.nm.NiceActivity
+import android.content.Context
+import android.content.Intent
+import ${applicationPackage}.R
+import ${applicationPackage}.databinding.Activity${activityClass}Binding
+class ${activityClass}Activity : NiceActivity<Activity${activityClass}Binding>() {
+     override fun initView() {
+    }
 
-/**     
-  * 
-  * @Description:      
-  * @Author:         slh
-  * @CreateDate:     2022/7/6 11:19
-  * @UpdateUser:     更新者：
-  * @UpdateDate:     2022/7/6 11:19
-  * @UpdateRemark:   更新说明：
-  * @Version:        2.2.7
-  */class mvvmAcitivityKt {
-}
+    override fun initData() {
+    }
+
+    override fun initListener() {
+    }
+    companion object {
+        @JvmStatic
+        fun start(context: Context) {
+            val starter = Intent(context, ${activityClass}Activity::class.java)
+            context.startActivity(starter)
+        }
+    }
+    } 
+"""

@@ -1,11 +1,13 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.lunhongshao.template</id>
-    <name>template</name>
+    <name>testTemplate</name>
     <vendor>lunhongshao</vendor>
 
     <depends>com.intellij.modules.platform</depends>
-
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.java</depends>
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.lunhongshao.template.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.lunhongshao.template.services.MyProjectService"/>
@@ -15,4 +17,7 @@
         <listener class="com.github.lunhongshao.template.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+    <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+        <wizardTemplateProvider implementation="other.SamplePluginTemplateProviderImpl" />
+    </extensions>
 </idea-plugin>

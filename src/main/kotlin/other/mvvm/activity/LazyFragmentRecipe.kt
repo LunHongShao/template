@@ -4,7 +4,7 @@ import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import other.mvvm.activity.res.layout.itemBinderXml
 import other.mvvm.activity.res.layout.mvvmActivityXml
-import other.mvvm.itemBinder.itemBinderKt
+import other.mvvm.fragment.fragmentKt
 
 /**
  *
@@ -17,25 +17,21 @@ import other.mvvm.itemBinder.itemBinderKt
  * @Version:        2.6.0
  */
 
-fun RecipeExecutor.itemBinderRecipe(
+fun RecipeExecutor.lazyFragmentRecipe(
     moduleData: ModuleTemplateData,
     className: String,
     layoutName: String,
-    packageName: String,
-    beanPackageName: String,
-    beanClassName: String
+    packageName: String
 ) {
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
-    val itemBinder = itemBinderKt(
+    val fragment = fragmentKt(
         projectData.applicationPackage,
         className,
-        packageName,
-        beanClassName = beanClassName,
-        beanPackageName = beanPackageName
+        packageName
     )
     // 保存Activity
-    save(itemBinder, srcOut.resolve("${className}ItemBinder.${ktOrJavaExt}"))
+    save(fragment, srcOut.resolve("${className}Fragment.${ktOrJavaExt}"))
     // 保存xml
     save(itemBinderXml(), resOut.resolve("layout/${layoutName}.xml"))
 }
