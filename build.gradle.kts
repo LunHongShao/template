@@ -19,6 +19,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 }
 
+
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 

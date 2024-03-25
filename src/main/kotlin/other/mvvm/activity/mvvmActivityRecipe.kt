@@ -30,8 +30,8 @@ fun RecipeExecutor.mvvmActivityRecipe(
 //            requireTheme = false,
 //            useMaterial2 = false
 //    )
-    generateManifest(moduleData = moduleData, activityClass = "${activityClass}Activity", packageName = "${packageName.replace("/", ".")}",
-            isLauncher = false, hasNoActionBar = false, generateActivityTitle = false)
+//    generateManifest(moduleData = moduleData, activityClass = "${activityClass}Activity", packageName = "${packageName.replace("/", ".")}",
+//            isLauncher = false, hasNoActionBar = false, generateActivityTitle = false)
     val niceActivity = niceAcitivityKt(projectData.applicationPackage, activityClass, packageName)
     // 保存Activity
     save(niceActivity, srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
