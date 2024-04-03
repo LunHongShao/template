@@ -18,10 +18,9 @@ fun itemBinderKt(
     beanPackageName:String
 )="""
 package ${packageName}
-import ${applicationPackage}.base.BindingItemBinder
-import com.youloft.schedule.base.BindingViewHolder
+import ${applicationPackage}.itemBinder.base.BindingItemBinder
+import ${applicationPackage}.itemBinder.base.BindingViewHolder
 import ${applicationPackage}.R
-import ${beanPackageName}.${beanClassName}
 import ${applicationPackage}.databinding.Item${className}LayoutBinding
 class ${className}ItemBinder : BindingItemBinder<${beanClassName},Item${className}LayoutBinding>() {
    override fun onBindViewHolder(

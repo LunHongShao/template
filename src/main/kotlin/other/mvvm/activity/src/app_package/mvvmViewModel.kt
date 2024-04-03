@@ -3,10 +3,10 @@ fun mvvmViewModel(
         packageName:String,
         activityClass:String
 )="""
-package ${packageName}
-import androidx.lifecycle.viewModelScope
-import com.bigademo.baselib.base.basemvvm.BaseViewModel
-class ${activityClass}ViewModel : BaseViewModel() {
-    private val repo by lazy { ${activityClass}Repository(this, viewModelScope, errorLiveData) }
+package ${packageName}.viewModel
+import androidx.lifecycle.ViewModel
+
+class ${activityClass}ViewModel : ViewModel() {
+    
 }    
 """

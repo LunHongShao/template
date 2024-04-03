@@ -16,7 +16,12 @@ val mvvmActivityTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(
+            WizardUiContext.ActivityGallery,
+            WizardUiContext.MenuEntry,
+            WizardUiContext.NewProject,
+            WizardUiContext.NewModule
+        )
 
         lateinit var layoutName: StringParameter
 
@@ -34,21 +39,29 @@ val mvvmActivityTemplate
             constraints = listOf(Constraint.LAYOUT, Constraint.UNIQUE, Constraint.NONEMPTY)
             suggest = { "${activityToLayout(activityClass.value.toCamelCase())}" }
         }
+        val neeViewModel = BooleanParameter(
+            name = "是否需要ViewModel",
+            help = "是否需要ViewModel",
+            defaultValue = true,
+        )
 
         val packageName = defaultPackageNameParameter
 
         widgets(
-                TextFieldWidget(activityClass),
-                TextFieldWidget(layoutName),
-                PackageNameWidget(packageName)
+            TextFieldWidget(activityClass),
+            TextFieldWidget(layoutName),
+            PackageNameWidget(packageName),
+            CheckBoxWidget(neeViewModel)
         )
         thumb { File("logo.png") }
         recipe = { data: TemplateData ->
             mvvmActivityRecipe(
-                    data as ModuleTemplateData,
-                    activityClass.value,
-                    layoutName.value,
-                    packageName.value)
+                data as ModuleTemplateData,
+                activityClass.value,
+                layoutName.value,
+                packageName.value,
+                neeViewModel.value
+            )
         }
     }
 
