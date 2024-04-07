@@ -47,18 +47,39 @@ val itemBinderTemplate
             constraints = listOf(Constraint.LAYOUT, Constraint.UNIQUE, Constraint.NONEMPTY)
             suggest = { "item_${camelCaseToUnderlines(itemBinderClass.value)}_layout" }
         }
+        val needCreateBean = BooleanParameter(
+            name = "是否需要创建实体类", help = "是否需要创建实体类", defaultValue = true
+        )
+//        如果不创建就指定一个
         val beanName = stringParameter {
             name = "bean name"
             default = "Any"
             help = "请输入实体类的名字"
             constraints = listOf(Constraint.CLASS, Constraint.UNIQUE, Constraint.NONEMPTY)
+            visible = {
+                !needCreateBean.value
+            }
+        }
+        val createBeanName = stringParameter {
+            name = "要创建的实体类名字"
+            default = "Any"
+            help = "请输入实体类的名字"
+            constraints = listOf(Constraint.CLASS, Constraint.UNIQUE, Constraint.NONEMPTY)
+            visible = {
+                needCreateBean.value
+            }
+            suggest={
+                "${itemBinderClass.value}Resp"
+            }
         }
         val packageName = defaultPackageNameParameter
 
         widgets(
             TextFieldWidget(itemBinderClass),
             TextFieldWidget(layoutName),
+            CheckBoxWidget(needCreateBean),
             TextFieldWidget(beanName),
+            TextFieldWidget(createBeanName),
             PackageNameWidget(packageName),
         )
         recipe = { data: TemplateData ->
@@ -67,8 +88,9 @@ val itemBinderTemplate
                 itemBinderClass.value,
                 layoutName.value,
                 packageName.value,
-                beanPackageName = "com.youloft.schedule.beans.resp",
-                beanClassName = beanName.value
+                beanClassName = beanName.value,
+                needCreateBean.value,
+                createBeanName.value
             )
         }
     }

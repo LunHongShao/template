@@ -4,6 +4,8 @@ import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import other.mvvm.activity.res.layout.itemBinderXml
 import other.mvvm.activity.res.layout.mvvmActivityXml
+import other.mvvm.itemBinder.itemBinderAnyKt
+import other.mvvm.itemBinder.itemBinderBeanKt
 import other.mvvm.itemBinder.itemBinderKt
 
 /**
@@ -22,19 +24,47 @@ fun RecipeExecutor.itemBinderRecipe(
     className: String,
     layoutName: String,
     packageName: String,
-    beanPackageName: String,
-    beanClassName: String
+    beanClassName: String,
+    needCreateBean: Boolean,
+    createBeanName: String
 ) {
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
-    val itemBinder = itemBinderKt(
-        projectData.applicationPackage,
-        className,
-        packageName,
-        beanClassName = beanClassName,
-        beanPackageName = beanPackageName
-    )
-    // 保存Activity
+    val itemBinder = if (needCreateBean) {
+        itemBinderKt(
+            projectData.applicationPackage,
+            className,
+            packageName,
+            beanClassName = "${createBeanName}Resp",
+        )
+    } else if (beanClassName == "Any") {
+        itemBinderAnyKt(
+            projectData.applicationPackage,
+            className,
+            packageName,
+            beanClassName = beanClassName,
+        )
+    } else {
+        itemBinderKt(
+            projectData.applicationPackage,
+            className,
+            packageName,
+            beanClassName = beanClassName,
+        )
+    }
+    if (needCreateBean) {
+        save(
+            itemBinderBeanKt(
+                projectData.applicationPackage,
+                className,
+                packageName,
+                beanClassName,
+                createBeanName
+            ),
+            moduleData.rootDir.resolve("src/main/java/com/youloft/daziplan/beans/resp/${createBeanName}Resp.${ktOrJavaExt}")
+        )
+    }
+    // 保存
     save(itemBinder, srcOut.resolve("${className}ItemBinder.${ktOrJavaExt}"))
     // 保存xml
     save(itemBinderXml(), resOut.resolve("layout/${layoutName}.xml"))
